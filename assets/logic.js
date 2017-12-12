@@ -19,6 +19,7 @@ $("#submitButton").on("click", function (event) {
     var trainInputName = $("#input-train").val();
     var trainInputDestination = $("#input-destination").val();
     var trainInputFirstTime = $("#input-time").val();
+    console.log(trainInputFirstTime);
     var trainInputFreq = $("#input-freq").val();
 //set up an oject to pass/push to firebase
     var newTrain = {
@@ -41,9 +42,9 @@ $("#submitButton").on("click", function (event) {
 
 });
 //timer function to reload just the table data
-setTimeout(function(){
-    window.location.reload(1);
- }, 30000);
+//setTimeout(function(){
+ //   window.location.reload(1);
+// }, 30000);
 
 //always be checking to see if any children are added
  database.ref().on("child_added", function (childSnapshot, prevChildKey) {
@@ -61,11 +62,11 @@ setTimeout(function(){
     
     //convert format in a variable
     var firstTimeConverted = moment(firstTrainTime, "hh:mm").subtract(1, "years");
-    console.log(firstTimeConverted);
+    console.log("first train time converted" + firstTimeConverted);
     
-    //get the current time, store as variable
+    //get the current time, format it,  store as variable
     var currentTime = moment();
-    console.log("current time: " + moment(currentTime).format("hh:mm"));
+    console.log("current system time: " + moment(currentTime).format("hh:mm"));
     
     //get difference in time from this moment to the first train time
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
@@ -77,7 +78,7 @@ setTimeout(function(){
     var tMinutesTillTrain = trainInputFreq - tRemainder;
     console.log("Min till Arrival: " + tMinutesTillTrain);
 
-    var nextTrain = moment().add(tMinutesTillTrain, "minutes")
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("hh:mm");
     console.log("Arrival Time: " + moment(nextTrain).format("hh:mm"));
 
 //finally append a new row full of variables
