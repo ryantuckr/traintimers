@@ -61,12 +61,12 @@ $("#submitButton").on("click", function (event) {
     var firstTrainTime = childSnapshot.val().time;
     
     //convert format in a variable
-    var firstTimeConverted = moment(firstTrainTime, "hh:mm").subtract(1, "years");
+    var firstTimeConverted = moment(firstTrainTime, "hh:mm a").subtract(1, "years");
     console.log("first train time converted" + firstTimeConverted);
     
     //get the current time, format it,  store as variable
     var currentTime = moment();
-    console.log("current system time: " + moment(currentTime).format("hh:mm"));
+    console.log("current system time: " + moment(currentTime).format("hh:mm a"));
     
     //get difference in time from this moment to the first train time
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
@@ -78,8 +78,8 @@ $("#submitButton").on("click", function (event) {
     var tMinutesTillTrain = trainInputFreq - tRemainder;
     console.log("Min till Arrival: " + tMinutesTillTrain);
 
-    var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("hh:mm");
-    console.log("Arrival Time: " + moment(nextTrain).format("hh:mm"));
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("hh:mm a");
+    console.log("Arrival Time: " + moment(nextTrain).format("hh:mm a"));
 
 //finally append a new row full of variables
     $(".table").append("<tr><td>" + trainInputName + "</td><td>" + trainInputDestination + "</td><td>" +
